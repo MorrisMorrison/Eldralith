@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://dn5mxxk0g84ns"]
+
+[ext_resource type="Script" path="res://main/MenuBar.cs" id="1_akj3g"]
+
+[node name="Main" type="Node2D"]
+
+[node name="MenuBar" type="MenuBar" parent="."]
+offset_left = 393.0
+offset_top = 199.0
+offset_right = 806.0
+offset_bottom = 536.0
+script = ExtResource("1_akj3g")
+
+[node name="Play" type="Button" parent="MenuBar"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 21.0
+offset_right = 381.0
+offset_bottom = 158.0
+text = "Play"
+
+[node name="Quit" type="Button" parent="MenuBar"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 176.0
+offset_right = 382.0
+offset_bottom = 313.0
+text = "Quit
+"
+
+[node name="Title" type="Label" parent="."]
+offset_left = 333.0
+offset_top = 56.0
+offset_right = 859.0
+offset_bottom = 174.0
+theme_override_font_sizes/font_size = 45
+text = "Eldralith"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="MenuBar/Play" to="MenuBar" method="_on_play_pressed"]
+[connection signal="pressed" from="MenuBar/Quit" to="MenuBar" method="_on_quit_pressed"]

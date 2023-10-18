@@ -1,4 +1,5 @@
 using Godot;
+using Microsoft.VisualBasic;
 using System;
 
 public partial class MenuBar : Godot.MenuBar
@@ -12,18 +13,22 @@ public partial class MenuBar : Godot.MenuBar
 	public override void _Process(double delta)
 	{
 	}
-	
+
 	private void _on_play_pressed()
-	{ 
-		GetTree().ChangeSceneToFile("world/world.tscn");	
-		// Replace with function body.
+	{
+		GetTree().ChangeSceneToFile("world/world.tscn");
+	}
+
+	private void _on_options_pressed()
+	{
+
+		GetTree().ChangeSceneToFile("options/options.tscn");
 	}
 
 
 	private void _on_quit_pressed()
 	{
 		GetTree().Quit();
-		// Replace with function body.
 	}
 }
 

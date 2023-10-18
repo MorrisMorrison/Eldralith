@@ -1,19 +1,57 @@
+// https://www.youtube.com/watch?v=PhrwjHdsALM
+// https://github.com/jemballs/godot4-vscode-csharp-build-config
+
 {
-    "version": "0.2.0",
+    "version": "2.0.0",
     "configurations": [
-      // For these launch configurations to work, you need to setup a GODOT4
-      // environment variable. On mac or linux, this can be done by adding
-      // the following to your .zshrc, .bashrc, or .bash_profile file:
-      // export GODOT4="/Applications/Godot.app/Contents/MacOS/Godot"
-      {
-        "name": "Play",
-        "type": "coreclr",
-        "request": "launch",
-        "preLaunchTask": "build",
-        "program": "${env:GODOT4}",
-        "args": [],
-        "cwd": "${workspaceFolder}",
-        "stopAtEntry": false,
-      }
+        {
+            "name": "Launch",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${env:GODOT4}",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "args": [
+                "--path",
+                "${workspaceRoot}"
+            ]
+        },
+        {
+            "name": "Launch (Select Scene)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${env:GODOT4}",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "args": [
+                "--path",
+                "${workspaceRoot}",
+                "${command:godot.csharp.getLaunchScene}"
+            ]
+        },
+        {
+            "name": "Launch Editor",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${env:GODOT4}",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "args": [
+                "--path",
+                "${workspaceRoot}",
+                "--editor"
+            ]
+        },
+        {
+            "name": "Attach to Process",
+            "type": "coreclr",
+            "request": "attach"
+        }
     ]
-  }
+}

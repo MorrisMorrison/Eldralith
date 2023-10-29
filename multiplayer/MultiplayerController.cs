@@ -6,11 +6,11 @@ public partial class MultiplayerController : Control
 {
 	// Called when the node enters the scene tree for the first time.
 	[Export]
-	private int port = 8910;
+	private int _port = 8910;
 	[Export]
-	private string ip = "127.0.0.1";
+	private string _ip = "127.0.0.1";
 
-	private ENetMultiplayerPeer peer;
+	private ENetMultiplayerPeer _peer;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -23,25 +23,32 @@ public partial class MultiplayerController : Control
 
 	private void ConnectionFailed()
 	{
-		GD.Print("Connection failed.");
+		GDPrint.Print("Connection FAILED.");
+		GDPrint.Print("Could not connect to server.");
 	}
 
 	private void ConnectionSuccessful()
 	{
-		GD.Print("Connection Successful");
+		GDPrint.Print("Connection SUCCESSFULL");
+
+		int playerId = Multiplayer.GetUniqueId();
 		GameManager.PlayerName = GetNode<LineEdit>("PlayerName").Text;
-		RpcId(1, "SendPlayerInformation", GameManager.PlayerName, Multiplayer.GetUniqueId());
+		
+		GDPrint.Print("Sending player information to server.");
+		GDPrint.Print($"Id: {playerId} - Name: {GameManager.PlayerName}");
+		
+		RpcId(1, "SendPlayerInformation", GameManager.PlayerName, playerId);
 	}
 
 	private void PlayerConnected(long id)
 	{
-		GD.Print(id);
+		GDPrint.Print($"Player <{id}> connected.");
 	}
 
 	private void PlayerDisconnected(long id)
 	{
-		GD.Print("Player Disconnected: " + id.ToString());
-		GameManager.Players.Remove(GameManager.Players.Where(i => i.Id == id).First<PlayerInfo>());
+		GDPrint.Print($"Player <${id}> disconnected.");
+		GameManager.Players.Remove(GameManager.Players.FirstOrDefault(i => i.Id == id));
 		var players = GetTree().GetNodesInGroup("Player");
 		
 		foreach (var item in players)
@@ -50,7 +57,6 @@ public partial class MultiplayerController : Control
 				item.QueueFree();
 			}
 		}
-		GD.Print(id);
 	}
 
 
@@ -62,17 +68,16 @@ public partial class MultiplayerController : Control
 
 	public void _on_join_pressed()
 	{
-		GD.Print("join clicked.");
-		peer = new ENetMultiplayerPeer();
-		var status = peer.CreateClient(ip, port);
+		_peer = new ENetMultiplayerPeer();
+		var status = _peer.CreateClient(_ip, _port);
 		if (status != Error.Ok)
 		{
-			GD.Print("Creating client failed");
+			GDPrint.PrintErr("Creating client FAILED.");
 			return;
 		}
 
-		peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
-		Multiplayer.MultiplayerPeer = peer;
+		_peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
+		Multiplayer.MultiplayerPeer = _peer;
 
 	}
 
@@ -85,6 +90,7 @@ public partial class MultiplayerController : Control
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void StartGame()
 	{
+		GDPrint.Print("Starting game.");
 		var scene = ResourceLoader.Load<PackedScene>("res://world/world.tscn").Instantiate<SceneManager>();
 		GetTree().Root.AddChild(scene);
 		this.Hide();
@@ -93,20 +99,15 @@ public partial class MultiplayerController : Control
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
 	public void SendPlayerInformation(string name, int id)
 	{
-		GD.Print("SendPlayerInformation");
 		PlayerInfo playerInfo = new PlayerInfo()
 		{
 			Name = name,
 			Id = id
 		};
 
-		if (!GameManager.Players.Any( p => p.Id == playerInfo.Id))
-		{
-			GameManager.Players.Add(playerInfo);
-		}
+		GDPrint.Print(playerInfo.ToString());
 
-		foreach (PlayerInfo player in GameManager.Players){
-			GD.Print(player);
-		}
+		GameManager.Players.Add(playerInfo);
+		GameManager.Players.Each(player => GD.Print(player));
 	}
 }

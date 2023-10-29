@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public partial class GameManager : Node
 {
 
-	public static List<PlayerInfo> Players = new List<PlayerInfo>();
+	public static HashSet<PlayerInfo> Players = new HashSet<PlayerInfo>();
 	public static string PlayerName;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

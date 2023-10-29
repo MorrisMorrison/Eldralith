@@ -6,6 +6,7 @@ public partial class Player : CharacterBody2D
 	private const float _speed = 200.0f;
 	private const float _jumpVelocity = -400.0f;
 	private Vector2 _syncPos = new(0, 0);
+	private Vector2 _syncDirection = new(0, 0);
 	private float _cameraFollowSpeed = 10f;
 
 	private AnimationPlayer _playerAnimation;
@@ -29,15 +30,19 @@ public partial class Player : CharacterBody2D
 		if (IsCurrentPlayer())
 		{
 			HandleCurrentPlayerMovement();
+
 			_syncPos = GlobalPosition;
+			_syncDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		}
 		else
 		{
 			GlobalPosition = GlobalPosition.Lerp(_syncPos, .1f);
 		}
+
+		HandlePlayerAnimation();
 	}
 
-	private bool IsCurrentPlayer()
+    private bool IsCurrentPlayer()
 	{
 		return _multiplayerSynchronizer.GetMultiplayerAuthority() == Multiplayer.GetUniqueId();
 	}
@@ -51,7 +56,7 @@ public partial class Player : CharacterBody2D
 			Enabled = true,
 			Name = "PlayerCamera",
 			AnchorMode = Camera2D.AnchorModeEnum.DragCenter,
-			Zoom = new Vector2(1.6f, 1.6f),
+			Zoom = new Vector2(3.0f, 3.0f),
 			Position = Position,
 			LimitLeft = 0,
 			LimitTop = 0,
@@ -75,10 +80,10 @@ public partial class Player : CharacterBody2D
 		_playerCamera.Position = cameraPosition;
 	}
 
-	private void HandleCurrentPlayerMovement()
+	private void HandlePlayerAnimation()
 	{
 		Vector2 velocity = Velocity;
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		Vector2 direction = _syncDirection;
 
 		if (direction != Vector2.Zero)
 		{
@@ -95,22 +100,16 @@ public partial class Player : CharacterBody2D
 			if (direction == Vector2.Up)
 			{
 				_playerAnimation.Play("run_up");
-				velocity.X = 0;
-				velocity.Y = direction.Y * _speed;
 			}
 
 			if (direction == Vector2.Down)
 			{
 				_playerAnimation.Play("run_down");
-				velocity.X = 0;
-				velocity.Y = direction.Y * _speed;
 			}
 
 			if (direction == Vector2.Left || direction == Vector2.Right)
 			{
 				_playerAnimation.Play("run_side");
-				velocity.Y = 0;
-				velocity.X = direction.X * _speed;
 			}
 		}
 		else
@@ -119,7 +118,36 @@ public partial class Player : CharacterBody2D
 			{
 				_playerAnimation.Play("idle_down");
 			}
+		}
+	}
 
+	private void HandleCurrentPlayerMovement()
+	{
+		Vector2 velocity = Velocity;
+		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+
+		if (direction != Vector2.Zero)
+		{
+			if (direction == Vector2.Up)
+			{
+				velocity.X = 0;
+				velocity.Y = direction.Y * _speed;
+			}
+
+			if (direction == Vector2.Down)
+			{
+				velocity.X = 0;
+				velocity.Y = direction.Y * _speed;
+			}
+
+			if (direction == Vector2.Left || direction == Vector2.Right)
+			{
+				velocity.Y = 0;
+				velocity.X = direction.X * _speed;
+			}
+		}
+		else
+		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, _speed);
 			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, _speed);
 		}
@@ -128,7 +156,8 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	public void SetupPlayer(string name){
+	public void SetupPlayer(string name)
+	{
 		GetNode<Label>("PlayerName").Text = name;
 	}
 

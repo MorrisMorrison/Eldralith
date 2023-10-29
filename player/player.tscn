@@ -506,11 +506,10 @@ properties/1/watch = false
 script = ExtResource("1_sdwjk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(464, 326)
 shape = SubResource("CapsuleShape2D_bsrso")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(464, 317)
+position = Vector2(-1, -8)
 sprite_frames = SubResource("SpriteFrames_ofghu")
 animation = &"idle_down"
 frame = 1

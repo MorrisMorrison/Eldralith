@@ -985,5 +985,7 @@ position = Vector2(432, 296)
 position = Vector2(1, 0)
 
 [node name="0" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+position = Vector2(510, 304)
 
 [node name="1" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+position = Vector2(622, 160)

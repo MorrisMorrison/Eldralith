@@ -20,8 +20,7 @@ public partial class Player : CharacterBody2D
 		_playerAnimation = GetNode<AnimationPlayer>("AnimationPlayer");
 		_playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
-		_multiplayerSynchronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
-		_multiplayerSynchronizer.SetMultiplayerAuthority(int.Parse(Name));
+		SetupMultiplayerSynchronizer();
 		SetupPlayerCamera();
 	}
 
@@ -32,7 +31,7 @@ public partial class Player : CharacterBody2D
 			HandleCurrentPlayerMovement();
 
 			_syncPos = GlobalPosition;
-			_syncDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+			_syncDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down") == Vector2.Zero ? GlobalPosition : Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		}
 		else
 		{
@@ -161,4 +160,17 @@ public partial class Player : CharacterBody2D
 		GetNode<Label>("PlayerName").Text = name;
 	}
 
+    internal void SetupMultiplayerSynchronizer()
+    {
+		MultiplayerSynchronizer multiplayerSynchronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
+		if (multiplayerSynchronizer != null){
+			_multiplayerSynchronizer = multiplayerSynchronizer;
+			if (!int.TryParse(Name, out _)){
+				GDPrint.Print(Multiplayer.GetUniqueId(), $"Name {Name.ToString()} could not be parsed to int.");
+			}
+			_multiplayerSynchronizer.SetMultiplayerAuthority(int.Parse(Name.ToString()));
+		}else{
+			GDPrint.Print(Multiplayer.GetUniqueId(), "MultiplayerSynchronizer is null");
+		}
+    }
 }

@@ -20,15 +20,6 @@ offset_bottom = 249.0
 theme_override_font_sizes/font_size = 28
 text = "Join"
 
-[node name="StartGame" type="Button" parent="."]
-layout_mode = 0
-offset_left = 961.0
-offset_top = 138.0
-offset_right = 1290.0
-offset_bottom = 246.0
-theme_override_font_sizes/font_size = 28
-text = "Start Game"
-
 [node name="PlayerName" type="LineEdit" parent="."]
 layout_mode = 0
 offset_left = 150.0
@@ -40,4 +31,3 @@ placeholder_text = "Name"
 alignment = 1
 
 [connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
-[connection signal="pressed" from="StartGame" to="." method="_on_start_game_pressed"]

@@ -12,6 +12,7 @@ public partial class MultiplayerController : Control
 
 	private ENetMultiplayerPeer _peer;
 	private int _playerId;
+	private SceneManager _scene;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -80,32 +81,31 @@ public partial class MultiplayerController : Control
 		_peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
 		Multiplayer.MultiplayerPeer = _peer;
 
+		StartGame();
 	}
 
-	public void _on_start_game_pressed()
-	{
-		Rpc("StartGame");
-	}
-
-
-	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void StartGame()
 	{
 		GDPrint.Print(_playerId, "Starting game.");
-		var scene = ResourceLoader.Load<PackedScene>("res://world/world.tscn").Instantiate<SceneManager>();
-		GetTree().Root.AddChild(scene);
+		_scene = ResourceLoader.Load<PackedScene>("res://world/world.tscn").Instantiate<SceneManager>();
+		GetTree().Root.AddChild(_scene);
 		this.Hide();
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
 	public void SendPlayerInformation(string name, int id)
 	{
+		if (id == 1) return;
+
 		PlayerInfo playerInfo = new PlayerInfo()
 		{
 			Name = name,
 			Id = id
 		};
 
+		if (GameManager.Players.Any(player => player.Id == id)) return;
+
 		GameManager.Players.Add(playerInfo);
+		_scene?.SpawnPlayers();
 	}
 }

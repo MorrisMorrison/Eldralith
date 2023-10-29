@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://dcsw40ywac8pr"]
 
-[ext_resource type="Script" path="res://skeleton/skeleton.cs" id="1_0f478"]
+[ext_resource type="Script" path="res://skeleton/Skeleton.cs" id="1_auyux"]
 [ext_resource type="Texture2D" uid="uid://ckre0gj1gbmjl" path="res://assets/mystic_woods_2.1/sprites/characters/skeleton.png" id="1_ndvc1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h6scv"]
@@ -118,7 +118,7 @@ _data = {
 }
 
 [node name="Skeleton" type="CharacterBody2D"]
-script = ExtResource("1_0f478")
+script = ExtResource("1_auyux")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_h6scv")

@@ -21,6 +21,7 @@ public partial class Player : CharacterBody2D
 
 		_multiplayerSynchronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
 		_multiplayerSynchronizer.SetMultiplayerAuthority(int.Parse(Name));
+		SetupPlayerCamera();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -58,7 +59,6 @@ public partial class Player : CharacterBody2D
 			LimitBottom = (int)GetViewportRect().Size.Y
 		};
 
-		playerCamera.MakeCurrent();
 		_playerCamera = playerCamera;
 
 		AddChild(_playerCamera);

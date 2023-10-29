@@ -1,7 +1,7 @@
 [gd_scene load_steps=46 format=3 uid="uid://cat0rqiittx4g"]
 
 [ext_resource type="PackedScene" uid="uid://dqqclf7lh4ooh" path="res://player/player.tscn" id="1_fiho0"]
-[ext_resource type="Script" path="res://SceneManager.cs" id="1_ve1mp"]
+[ext_resource type="Script" path="res://global/SceneManager.cs" id="1_vkvvo"]
 [ext_resource type="PackedScene" uid="uid://cf3o6h2dhil7y" path="res://background/background.tscn" id="2_m2lgd"]
 [ext_resource type="Texture2D" uid="uid://bbfa7adirt7xr" path="res://assets/mystic_woods_2.1/sprites/tilesets/floors/carpet.png" id="3_u4mkd"]
 [ext_resource type="Texture2D" uid="uid://ux5rc5g2ju6g" path="res://assets/mystic_woods_2.1/sprites/tilesets/floors/flooring.png" id="4_drdhs"]
@@ -933,9 +933,9 @@ sources/19 = SubResource("TileSetAtlasSource_iaxep")
 sources/24 = SubResource("TileSetAtlasSource_ertby")
 sources/25 = SubResource("TileSetAtlasSource_0rrvk")
 
-[node name="Town" type="Node2D"]
+[node name="World" type="Node2D"]
 position = Vector2(1, 0)
-script = ExtResource("1_ve1mp")
+script = ExtResource("1_vkvvo")
 playerScene = ExtResource("1_fiho0")
 
 [node name="Background" parent="." instance=ExtResource("2_m2lgd")]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://bkjhvcen4l3ee"]
 
-[ext_resource type="Script" path="res://slime/slime.cs" id="1_mrrix"]
+[ext_resource type="Script" path="res://slime/Slime.cs" id="1_a3itm"]
 [ext_resource type="Texture2D" uid="uid://cqpm7rjfxikbn" path="res://assets/mystic_woods_2.1/sprites/characters/slime.png" id="1_rbnu2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n6rct"]
@@ -92,7 +92,7 @@ _data = {
 }
 
 [node name="Slime" type="CharacterBody2D"]
-script = ExtResource("1_mrrix")
+script = ExtResource("1_a3itm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_n6rct")

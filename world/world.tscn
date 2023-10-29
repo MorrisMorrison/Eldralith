@@ -936,7 +936,7 @@ sources/25 = SubResource("TileSetAtlasSource_0rrvk")
 [node name="World" type="Node2D"]
 position = Vector2(1, 0)
 script = ExtResource("1_vkvvo")
-playerScene = ExtResource("1_fiho0")
+_playerScene = ExtResource("1_fiho0")
 
 [node name="Background" parent="." instance=ExtResource("2_m2lgd")]
 

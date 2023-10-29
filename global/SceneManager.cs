@@ -12,6 +12,7 @@ public partial class SceneManager : Node
 		GameManager.Players.Each((player, index) => {
 			Player currentPlayer = _playerScene.Instantiate<Player>();
 			currentPlayer.Name = player.Id.ToString();
+			currentPlayer.SetupPlayer(player.Name);
 			AddChild(currentPlayer);
 
 			GetTree().GetNodesInGroup("PlayerSpawnPoints").Each(playerSpawnPoint => {

@@ -11,6 +11,7 @@ public partial class MultiplayerController : Control
 	private string _ip = "127.0.0.1";
 
 	private ENetMultiplayerPeer _peer;
+	private int _playerId;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -31,23 +32,23 @@ public partial class MultiplayerController : Control
 	{
 		GDPrint.Print("Connection SUCCESSFULL");
 
-		int playerId = Multiplayer.GetUniqueId();
+		_playerId = Multiplayer.GetUniqueId();
 		GameManager.PlayerName = GetNode<LineEdit>("PlayerName").Text;
 		
-		GDPrint.Print("Sending player information to server.");
-		GDPrint.Print($"Id: {playerId} - Name: {GameManager.PlayerName}");
+		GDPrint.Print(_playerId, "Sending player information to server.");
+		GDPrint.Print(_playerId, $"Id: {_playerId} - Name: {GameManager.PlayerName}");
 		
-		RpcId(1, "SendPlayerInformation", GameManager.PlayerName, playerId);
+		RpcId(1, "SendPlayerInformation", GameManager.PlayerName, _playerId);
 	}
 
 	private void PlayerConnected(long id)
 	{
-		GDPrint.Print($"Player <{id}> connected.");
+		GDPrint.Print(_playerId, $"Player <{id}> connected.");
 	}
 
 	private void PlayerDisconnected(long id)
 	{
-		GDPrint.Print($"Player <${id}> disconnected.");
+		GDPrint.Print(_playerId, $"Player <${id}> disconnected.");
 		GameManager.Players.Remove(GameManager.Players.FirstOrDefault(i => i.Id == id));
 		var players = GetTree().GetNodesInGroup("Player");
 		
@@ -90,7 +91,7 @@ public partial class MultiplayerController : Control
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void StartGame()
 	{
-		GDPrint.Print("Starting game.");
+		GDPrint.Print(_playerId, "Starting game.");
 		var scene = ResourceLoader.Load<PackedScene>("res://world/world.tscn").Instantiate<SceneManager>();
 		GetTree().Root.AddChild(scene);
 		this.Hide();
@@ -105,9 +106,6 @@ public partial class MultiplayerController : Control
 			Id = id
 		};
 
-		GDPrint.Print(playerInfo.ToString());
-
 		GameManager.Players.Add(playerInfo);
-		GameManager.Players.Each(player => GD.Print(player));
 	}
 }

@@ -128,4 +128,8 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
+	public void SetupPlayer(string name){
+		GetNode<Label>("PlayerName").Text = name;
+	}
+
 }

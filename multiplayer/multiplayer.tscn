@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://clsap0q5icgrc"]
+
+[ext_resource type="Script" path="res://MultiplayerController.cs" id="1_j7auv"]
+
+[node name="Multiplayer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j7auv")
+
+[node name="Join" type="Button" parent="."]
+layout_mode = 0
+offset_left = 566.0
+offset_top = 140.0
+offset_right = 930.0
+offset_bottom = 249.0
+theme_override_font_sizes/font_size = 28
+text = "Join"
+
+[node name="StartGame" type="Button" parent="."]
+layout_mode = 0
+offset_left = 961.0
+offset_top = 138.0
+offset_right = 1290.0
+offset_bottom = 246.0
+theme_override_font_sizes/font_size = 28
+text = "Start Game"
+
+[node name="PlayerName" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 144.0
+offset_right = 540.0
+offset_bottom = 259.0
+theme_override_font_sizes/font_size = 28
+placeholder_text = "Name"
+alignment = 1
+
+[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="StartGame" to="." method="_on_start_game_pressed"]

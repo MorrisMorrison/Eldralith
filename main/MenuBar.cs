@@ -21,7 +21,6 @@ public partial class MenuBar : Godot.MenuBar
 
 	private void _on_options_pressed()
 	{
-
 		GetTree().ChangeSceneToFile("options/options.tscn");
 	}
 
@@ -29,6 +28,11 @@ public partial class MenuBar : Godot.MenuBar
 	private void _on_quit_pressed()
 	{
 		GetTree().Quit();
+	}
+
+	private void _on_multiplayer_pressed()
+	{
+		GetTree().ChangeSceneToFile("multiplayer/multiplayer.tscn");
 	}
 }
 

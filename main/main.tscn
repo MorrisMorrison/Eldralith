@@ -25,22 +25,31 @@ text = "Play"
 
 [node name="Quit" type="Button" parent="MenuBar"]
 layout_mode = 0
-offset_left = 413.0
-offset_top = 510.0
-offset_right = 759.0
-offset_bottom = 647.0
+offset_left = 412.0
+offset_top = 636.0
+offset_right = 758.0
+offset_bottom = 773.0
 theme_override_font_sizes/font_size = 28
 text = "Quit
 "
 
 [node name="Options" type="Button" parent="MenuBar"]
 layout_mode = 0
-offset_left = 414.0
-offset_top = 349.0
-offset_right = 758.0
-offset_bottom = 490.0
+offset_left = 412.0
+offset_top = 485.0
+offset_right = 756.0
+offset_bottom = 626.0
 theme_override_font_sizes/font_size = 28
 text = "Options"
+
+[node name="Multiplayer" type="Button" parent="MenuBar"]
+layout_mode = 0
+offset_left = 412.0
+offset_top = 337.0
+offset_right = 755.0
+offset_bottom = 473.0
+theme_override_font_sizes/font_size = 28
+text = "Multiplayer"
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 0
@@ -56,3 +65,4 @@ vertical_alignment = 1
 [connection signal="pressed" from="MenuBar/Play" to="MenuBar" method="_on_play_pressed"]
 [connection signal="pressed" from="MenuBar/Quit" to="MenuBar" method="_on_quit_pressed"]
 [connection signal="pressed" from="MenuBar/Options" to="MenuBar" method="_on_options_pressed"]
+[connection signal="pressed" from="MenuBar/Multiplayer" to="MenuBar" method="_on_multiplayer_pressed"]

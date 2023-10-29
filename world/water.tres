@@ -1,0 +1,24 @@
+[gd_resource type="AnimatedTexture" load_steps=7 format=3 uid="uid://dp0wx1i8knq5k"]
+
+[ext_resource type="Texture2D" uid="uid://cjly0oqngg6xo" path="res://assets/mystic_woods_2.1/sprites/tilesets/water1.png" id="1_kfo46"]
+[ext_resource type="Texture2D" uid="uid://b1werahpnl672" path="res://assets/mystic_woods_2.1/sprites/tilesets/water2.png" id="2_shpjc"]
+[ext_resource type="Texture2D" uid="uid://ctf2ehs37x2hd" path="res://assets/mystic_woods_2.1/sprites/tilesets/water3.png" id="3_rf81v"]
+[ext_resource type="Texture2D" uid="uid://dkvob25e8pnu8" path="res://assets/mystic_woods_2.1/sprites/tilesets/water4.png" id="4_fw7a0"]
+[ext_resource type="Texture2D" uid="uid://bm237kb582csc" path="res://assets/mystic_woods_2.1/sprites/tilesets/water5.png" id="5_vvfnr"]
+[ext_resource type="Texture2D" uid="uid://drs7u4yyiy23k" path="res://assets/mystic_woods_2.1/sprites/tilesets/water6.png" id="6_i8uhw"]
+
+[resource]
+resource_name = "water"
+frames = 6
+frame_0/texture = ExtResource("1_kfo46")
+frame_0/duration = 0.5
+frame_1/texture = ExtResource("2_shpjc")
+frame_1/duration = 0.5
+frame_2/texture = ExtResource("3_rf81v")
+frame_2/duration = 0.5
+frame_3/texture = ExtResource("4_fw7a0")
+frame_3/duration = 0.5
+frame_4/texture = ExtResource("5_vvfnr")
+frame_4/duration = 0.5
+frame_5/texture = ExtResource("6_i8uhw")
+frame_5/duration = 0.5
